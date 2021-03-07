@@ -1,0 +1,17 @@
+{
+  "name": "make_memorization",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fxjs": "^0.21.2",
+    "puppeteer": "^8.0.0"
+  },
+  "type": "module"
+}

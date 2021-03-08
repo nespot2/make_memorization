@@ -5,13 +5,13 @@
 
 ## 2. Getting Started
 
-### 2.1 인스톨 npm library
+### 2.1 install npm library
 
 ```bash
 npm install
 ```
 
-### 2.2 크롤링 시작
+### 2.2 how to start crawler
 
 ```bash
 ./start.sh

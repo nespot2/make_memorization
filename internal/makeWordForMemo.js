@@ -31,7 +31,7 @@ export default function makeWordForMemo(word) {
 
     const afterLastWord = word.substr(last + 1, length);
 
-    const blankStr = repeat(" ", last - first - 1).join("");
+    const blankStr = repeat("◌", last - first - 1).join("");
 
     return beforeFirstWord + word[first] + blankStr + word[last] + afterLastWord;
 }

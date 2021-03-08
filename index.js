@@ -1,10 +1,12 @@
-import {writeFile} from 'fs/promises';
 import puppeteer from 'puppeteer';
-import {go, map, join} from "fxjs";
+import {go, map} from "fxjs";
 import isSunday from "./internal/isSunday.js";
 import getToday from "./internal/getToday.js";
 
 import makeSentenceForMemo from "./internal/makeSentenceForMemo.js";
+import makeHtml from "./internal/makeHtml.js";
+import makePdf from "./internal/makePdf.js";
+
 
 
 (async () => {
@@ -15,7 +17,7 @@ import makeSentenceForMemo from "./internal/makeSentenceForMemo.js";
 
         await page.goto(`https://learn.dict.naver.com/conversation#/endic/${today}`);
 
-        await page.waitForTimeout(1000);
+        await page.waitForTimeout(2000);
 
         const enList = await page.$$eval(".reading_lst .txt_origin > .ng-isolate-scope", nodes => nodes.map(n => n.innerText));
 
@@ -23,18 +25,13 @@ import makeSentenceForMemo from "./internal/makeSentenceForMemo.js";
             enList,
             map(makeSentenceForMemo),
             arr => {
-                let index = 1;
-                const result = [];
-                for (const value of arr) {
-                    result.push(`${index}. ${value}`)
-                    index++;
+                return {
+                    today,
+                    sentenceList: arr
                 }
-
-                return result;
             },
-            arr => ([today,...arr]),
-            join("\n\n"),
-            result => writeFile(`out_en_memo/${today}`, result, {encoding: "utf-8"})
+            makeHtml,
+            html => makePdf(html, today)
         )
 
         await browser.close();
